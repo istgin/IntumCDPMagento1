@@ -2,7 +2,7 @@
 <config>
     <tabs>
         <intrum translate="label" module="intrum">
-            <label>Intrum (4.1.0)</label>
+            <label>Intrum (4.1.1)</label>
             <sort_order>301</sort_order>
         </intrum>
     </tabs>

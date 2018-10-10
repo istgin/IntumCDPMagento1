@@ -298,7 +298,7 @@ class ZZZZIntrum_Cdp_Helper_Data extends Mage_Core_Helper_Abstract {
         }
 
 		$extraInfo["Name"] = 'CONNECTIVTY_MODULE';
-		$extraInfo["Value"] = 'Intrum Magento module 4.1.0';
+		$extraInfo["Value"] = 'Intrum Magento module 4.1.1';
 		$request->setExtraInfo($extraInfo);
         return $request;
 
@@ -442,7 +442,7 @@ class ZZZZIntrum_Cdp_Helper_Data extends Mage_Core_Helper_Abstract {
         $request->setExtraInfo($extraInfo);
 
 		$extraInfo["Name"] = 'CONNECTIVTY_MODULE';
-		$extraInfo["Value"] = 'Intrum Magento module 4.1.0';
+		$extraInfo["Value"] = 'Intrum Magento module 4.1.1';
 		$request->setExtraInfo($extraInfo);	
 
         return $request;
