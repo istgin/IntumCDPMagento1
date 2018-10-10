@@ -212,7 +212,7 @@ class ZZZZIntrum_Cdp_Model_Observer extends Mage_Core_Model_Abstract {
         if (Mage::getStoreConfig('intrum/api/pluginenabled', Mage::app()->getStore()) == 'disable') {
             return;
         }
-        $order_id = $observer->getData('order_ids');
+        $order_id = Mage::getSingleton('checkout/session')->getLastOrderId();
         /* @var $order Mage_Sales_Model_Order */
         $order = Mage::getModel('sales/order')->load($order_id);
         $incrementId = $order->getIncrementId();
