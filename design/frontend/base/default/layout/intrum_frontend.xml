@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_index>
+        <!-- Mage_GoogleAnalytics -->
+        <reference name="after_body_start">
+            <block type="page/html" name="intrum_frontend" as="intrum_frontend" template="intrum_frontend/intrum_frontend.phtml" />
+        </reference>
+    </checkout_onepage_index>
+    <opc_index_index>
+        <!-- Mage_GoogleAnalytics -->
+        <reference name="after_body_start">
+            <block type="page/html" name="intrum_frontend" as="intrum_frontend" template="intrum_frontend/intrum_frontend.phtml" />
+        </reference>
+    </opc_index_index>
+</layout>

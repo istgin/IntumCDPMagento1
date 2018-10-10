@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ZZZZIntrum_Cdp>
+            <version>4.1.0</version>
+        </ZZZZIntrum_Cdp>
+    </modules>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ZZZZIntrum_Cdp before="Mage_Adminhtml">ZZZZIntrum_Cdp_Adminhtml</ZZZZIntrum_Cdp>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <intrum translate="title" module="intrum">
+                <title>Intrum</title>
+                <sort_order>100</sort_order>
+                <children>
+                    <set_time>
+                        <title>Request log</title>
+                        <action>adminhtml/intrumlog/log</action>
+                    </set_time>
+                </children>
+            </intrum>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <intrum translate="title" module="intrum">
+                            <title>Intrum</title>
+                            <sort_order>0</sort_order>
+                            <children>
+                                <set_time>
+                                    <title>Log</title>
+                                    <sort_order>1</sort_order>
+                                </set_time>
+                            </children>
+                        </intrum>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <intrum translate="title" module="intrum">
+                                            <title>Intrum</title>
+                                            <sort_order>50</sort_order>
+                                        </intrum>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <Intrum module="ZZZZIntrum_Cdp">
+                    <file>intrum.xml</file>
+                </Intrum>
+            </updates>
+        </layout>
+    </adminhtml>
+    <frontend>
+        <layout>
+            <updates>
+                <mymodule>
+                    <file>intrum_frontend.xml</file> <!-- Our layout file name-->
+                </mymodule>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <fieldsets>
+            <sales_convert_quote>
+                <intrum_status>
+                    <to_order>*</to_order>
+                </intrum_status>
+                <intrum_credit_rating>
+                    <to_order>*</to_order>
+                </intrum_credit_rating>
+                <intrum_credit_level>
+                    <to_order>*</to_order>
+                </intrum_credit_level>
+            </sales_convert_quote>
+        </fieldsets>
+        <helpers>
+            <intrum><class>ZZZZIntrum_Cdp_Helper</class></intrum>
+        </helpers>
+        <blocks>
+            <intrum>
+                <class>ZZZZIntrum_Cdp_Block</class>
+            </intrum>
+        </blocks>
+        <models>
+            <intrum>
+                <class>ZZZZIntrum_Cdp_Model</class>
+                <resourceModel>intrum_mysql4</resourceModel>
+            </intrum>
+            <intrum_mysql4>
+                <class>ZZZZIntrum_Cdp_Model_Mysql4</class>
+                <entities>
+                    <intrum>
+                        <table>intrum</table>
+                    </intrum>
+                </entities>
+            </intrum_mysql4>
+            <!--<checkout> Mage_Checkout_Model_Type_Onepage
+                <rewrite>
+                    <type_onepage>ZZZZIntrum_Cdp_Model_Onepage</type_onepage>
+                </rewrite>
+            </checkout>-->
+        </models>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <intrum_amscheckoutfront_onepage>
+                        <type>singleton</type>
+                        <class>intrum/observer</class>
+                        <method>hookToControllerActionPreDispatch</method>
+                    </intrum_amscheckoutfront_onepage>
+                </observers>
+            </controller_action_predispatch>
+			<controller_action_predispatch_checkout_onepage_saveBilling>
+				<observers>
+					<auto_register_shipping>
+						<type>singleton</type>
+						<class>intrum/observer</class>
+						<method>checkout_controller_onepage_save_billing_method</method>
+					</auto_register_shipping>
+				</observers>
+			</controller_action_predispatch_checkout_onepage_saveBilling>
+            <checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <intrum_after_checkout_process>
+                        <type>singleton</type>
+                        <class>intrum/observer</class>
+                        <method>checkout_controller_onepage_save_shipping_method</method>
+                    </intrum_after_checkout_process>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>
+            <checkout_controller_multishipping_shipping_post>
+                <observers>
+                    <intrum_after_multicheckout_process>
+                        <type>singleton</type>
+                        <class>intrum/observer</class>
+                        <method>checkout_controller_multishipping_save_shipping_method</method>
+                    </intrum_after_multicheckout_process>
+                </observers>
+            </checkout_controller_multishipping_shipping_post>
+            <payment_method_is_active>
+                <observers>
+                    <intrum_before_load_payment_method>
+                        <type>singleton</type>
+                        <class>intrum/observer</class>
+                        <method>checkandcall</method>
+                    </intrum_before_load_payment_method>
+                </observers>
+            </payment_method_is_active>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <intrum_after_checkout_process>
+                        <type>singleton</type>
+                        <class>intrum/observer</class>
+                        <method>sales_order_payment_place_end</method>
+                    </intrum_after_checkout_process>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            <checkout_multishipping_controller_success_action>
+                <observers>
+                    <intrum_after_checkout_process>
+                        <type>singleton</type>
+                        <class>intrum/observer</class>
+                        <method>sales_order_payment_place_multishipping_end</method>
+                    </intrum_after_checkout_process>
+                </observers>
+            </checkout_multishipping_controller_success_action>
+        </events>
+        <resources>
+            <intrum_setup>
+                <setup>
+                    <module>ZZZZIntrum_Cdp</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </intrum_setup>
+        </resources>
+    </global>
+    <default>
+        <intrum>
+            <api>
+                <currentmode>test</currentmode>
+                <minamout>10</minamout>
+                <timeout>30</timeout>
+                <tmxenabled>disable</tmxenabled>
+                <businesstobusiness>disable</businesstobusiness>
+            </api>
+            <advancedcall>
+                <activation>checkout,onepage
+onestepcheckout,index
+onestepcheckout,onepage
+PostFinanceCw,onepage
+PostFinanceCw,process
+SaferpayCw,onepage
+SaferpayCw,process
+DatatransCw,onepage
+DatatransCw,process
+checkout,multishipping
+onepage,json
+onepage,index</activation>
+            </advancedcall>
+        </intrum>
+    </default>
+</config>
