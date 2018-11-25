@@ -257,7 +257,7 @@ class ZZZZIntrum_Cdp_Model_Observer extends Mage_Core_Model_Abstract {
             $statusToPayment = Mage::getSingleton('checkout/session')->getData('IntrumCDPStatus');
             $IntrumResponseSession = Mage::getSingleton('checkout/session')->getData('IntrumResponse');
             if (!empty($statusToPayment) && !empty($IntrumResponseSession)) {
-                $this->getHelper()->saveStatusToOrder($order, $statusToPayment, unserialize($IntrumResponseSession));
+                $this->getHelper()->saveStatusToOrder($order->getId(), $statusToPayment, unserialize($IntrumResponseSession));
             }
         } else {
             $this->getHelper()->saveLog($quote, $request, $xml, "empty response", "0", $IntrumRequestName);
