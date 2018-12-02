@@ -70,9 +70,9 @@ class ZZZZIntrum_Cdp_Helper_Data extends Mage_Core_Helper_Abstract {
         /* @var $order Mage_Sales_Model_Order */
         $order = Mage::getModel('sales/order')->load($orderId);
         $order->addStatusHistoryComment('<b>Intrum status: '.$this->valueToStatus($intrum_status).'</b><br/>Credit rating: '.$IntrumResponse->getCustomerCreditRating().'<br/>Credit rating level: '.$IntrumResponse->getCustomerCreditRatingLevel().'<br/>Status code: '. $intrum_status.'</b>');
-        $order->setIntrumStatus($intrum_status);
-        $order->setIntrumCreditRating($IntrumResponse->getCustomerCreditRating());
-        $order->setIntrumCreditLevel($IntrumResponse->getCustomerCreditRatingLevel());
+        $order->setData('intrum_status', $intrum_status);
+        $order->setData('intrum_credit_rating', $IntrumResponse->getCustomerCreditRating());
+        $order->setData('intrum_credit_level', $IntrumResponse->getCustomerCreditRatingLevel());
         $order->save();
     }
 
